@@ -27,22 +27,35 @@ public class Bill implements TakeAwayBill{
 
         double tot=0;
         int icecreamCount = 0;
+        int totWithoutDrinks=0; 
         double minPrice = Double.MAX_VALUE;
-        for(MenuItem mi : itemsOrdered)
-        {
-            if(mi.getType().equals(MenuItem.items.Gelato ))
-            {
+        
+        for(MenuItem mi : itemsOrdered) {
+            
+            tot += mi.getPrice();
+            
+            if(!mi.getType().equals(MenuItem.items.Bevanda)) {
+                
+                totWithoutDrinks += mi.getPrice();
+            }
+            
+            if(mi.getType().equals(MenuItem.items.Gelato)) {
+                
                 icecreamCount++;
-                if(mi.getPrice() < minPrice)
-                {
-                     minPrice = mi.getPrice();
+                if(mi.getPrice() < minPrice) {
+                    
+                    minPrice = mi.getPrice();
                 }
             }
-            tot +=mi.getPrice();
         }
-        if(icecreamCount >= 5)
-        {
-            tot-=minPrice/2;
+        
+        if(icecreamCount >= 5) {
+            
+            tot -= minPrice / 2;
+        }
+        
+        if(totWithoutDrinks >= 50) {
+            tot *= 0.9;
         }
         return tot;
     }

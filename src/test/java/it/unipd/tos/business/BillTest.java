@@ -27,18 +27,16 @@ public class BillTest {
        public void setup (){
            bi = new Bill(LocalTime.of(17,0,0,0));
            li = new ArrayList<MenuItem>();
-           li.add(new MenuItem("Pinguino",MenuItem.items.Budino,12.00));
-           li.add(new MenuItem("Banana Split",MenuItem.items.Gelato,12.00));
            us = new User("Marco","Uderzo",21,1);
        }
     
     @Test
     public void ComputeTotalTest() {
         
-        li.add(new MenuItem("Cola",MenuItem.items.Bevanda,2.50));
+        li.add(new MenuItem("Cola",MenuItem.items.Bevanda,2.00));
         li.add(new MenuItem("Coppa Nafta",MenuItem.items.Gelato, 4.00));
         try {
-            assertEquals(30.50,bi.getOrderPrice(li,us),0.0);
+            assertEquals(6.00,bi.getOrderPrice(li,us),0.0);
         } catch (TakeAwayBillException e) {
             System.out.println("Error");
         }
@@ -52,11 +50,27 @@ public class BillTest {
         li.add(new MenuItem("Banana Split",MenuItem.items.Gelato, 10.00));
         li.add(new MenuItem("Banana Split",MenuItem.items.Gelato, 6.00));
         try {
-            assertEquals(67.00,bi.getOrderPrice(li,us),0.0);
+            assertEquals(43.00,bi.getOrderPrice(li,us),0.0);
         } catch (TakeAwayBillException e) {
             System.out.println("Error");
         }
     }
+    
+    @Test
+    public void ComputeTotalWith10pctDiscountTest() {
+        
+        li.add(new MenuItem("Pinguino",MenuItem.items.Gelato, 10.00));
+        li.add(new MenuItem("Banana split",MenuItem.items.Gelato, 10.00));
+        li.add(new MenuItem("Banana split",MenuItem.items.Gelato, 10.00));
+        li.add(new MenuItem("Biancaneve",MenuItem.items.Budino, 10.00));
+        li.add(new MenuItem("Banana split",MenuItem.items.Gelato, 10.00));
+        try {
+            assertEquals(45,bi.getOrderPrice(li,us),0.0);
+        } catch (TakeAwayBillException e) {
+            System.out.println("Error");
+        }
+    }
+    
     
     @After
     public void Empty()
