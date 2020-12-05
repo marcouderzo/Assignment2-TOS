@@ -15,10 +15,8 @@ import it.unipd.tos.model.User;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import org.junit.After;
 import org.junit.Before;
-
-
-
 
 public class BillTest {
     Bill bi;
@@ -34,13 +32,36 @@ public class BillTest {
            us = new User("Marco","Uderzo",21,1);
        }
     
-    
     @Test
-    public void computeTotalTest() {
+    public void ComputeTotalTest() {
+        
+        li.add(new MenuItem("Cola",MenuItem.items.Bevanda,2.50));
+        li.add(new MenuItem("Coppa Nafta",MenuItem.items.Gelato, 4.00));
         try {
-        assertEquals(24.00,bi.getOrderPrice(li,us),0.0);
+            assertEquals(30.50,bi.getOrderPrice(li,us),0.0);
         } catch (TakeAwayBillException e) {
-            System.out.println("Errore");
+            System.out.println("Error");
         }
     }
+    
+    @Test
+    public void ComputeTotalWith5ItemsTest() {
+        li.add(new MenuItem("Banana Split",MenuItem.items.Gelato, 10.00));
+        li.add(new MenuItem("Banana Split",MenuItem.items.Gelato, 10.00));
+        li.add(new MenuItem("Banana Split",MenuItem.items.Gelato, 10.00));
+        li.add(new MenuItem("Banana Split",MenuItem.items.Gelato, 10.00));
+        li.add(new MenuItem("Banana Split",MenuItem.items.Gelato, 6.00));
+        try {
+            assertEquals(67.00,bi.getOrderPrice(li,us),0.0);
+        } catch (TakeAwayBillException e) {
+            System.out.println("Error");
+        }
+    }
+    
+    @After
+    public void Empty()
+    {
+         li.clear();
+    }
+
 }
