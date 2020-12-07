@@ -30,6 +30,11 @@ public class Bill implements TakeAwayBill{
         int totWithoutDrinks=0; 
         double minPrice = Double.MAX_VALUE;
         
+        if(itemsOrdered.size() >= 30) {
+            
+            throw new TakeAwayBillException("Orders Exceed Limit");
+        }
+        
         for(MenuItem mi : itemsOrdered) {
             
             tot += mi.getPrice();
@@ -57,6 +62,7 @@ public class Bill implements TakeAwayBill{
         if(totWithoutDrinks >= 50) {
             tot *= 0.9;
         }
+        
         return tot;
     }
 }
