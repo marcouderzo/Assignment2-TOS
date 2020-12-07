@@ -33,10 +33,10 @@ public class BillTest {
     @Test
     public void ComputeTotalTest() {
         
-        li.add(new MenuItem("Cola",MenuItem.items.Bevanda,2.00));
+        li.add(new MenuItem("Cola",MenuItem.items.Bevanda,7.00));
         li.add(new MenuItem("Coppa Nafta",MenuItem.items.Gelato, 4.00));
         try {
-            assertEquals(6.00,bi.getOrderPrice(li,us),0.0);
+            assertEquals(11.00,bi.getOrderPrice(li,us),0.0);
         } catch (TakeAwayBillException e) {
             System.out.println("Error");
         }
@@ -81,6 +81,19 @@ public class BillTest {
         }
      
         bi.getOrderPrice(li, us);
+    }
+    
+    @Test
+    public void Add50CommissionInOrdersLessThan10Test()
+    {
+        li.add(new MenuItem("Banana Split", MenuItem.items.Gelato, 7.00));
+        try {
+            assertEquals(7.50, bi.getOrderPrice(li, us), 0.0);
+        }
+        catch(TakeAwayBillException exception)
+        {
+            System.out.println("Errore");
+        }
     }
     
     
