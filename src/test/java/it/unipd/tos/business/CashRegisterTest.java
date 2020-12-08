@@ -94,17 +94,17 @@ public class CashRegisterTest {
     }
 
     @Test
-    public void hasGiftedAtLeastOnceGiftTest()
+    public void hasGiftedWithTrueResultAndFalseResultTest()
     {
-        boolean a = false,c = true;
+        boolean b1 = false,b2 = true;
         for(int i = 0;i < 1000;i++) {
             CRegister.AddBill(new Bill(LocalTime.of(18,40),new User("Marco","Uderzo",10, i+25)));
             boolean b = CRegister.gift();
             if(b) {
-                a=b;
+                b1=b;
             }
-            else c=b;
+            else b2=b;
         }
-        assertTrue(a && !c);
+        assertTrue(b1 && !b2);
     }
 }
